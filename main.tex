@@ -1,0 +1,103 @@
+\documentclass[a4paper]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{indentfirst}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[hidelinks]{hyperref}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}{Определение}[section]
+
+\newtheorem{theorem}{Теорема}[section]
+
+\title{Решение тестовых заданий Сбербанка}
+\author{Берлет Максим}
+\date{}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\tableofcontents
+\pagebreak
+
+\section{Задание 1}
+\subsection{Условие}
+Consider the simplest fair lottery: you make a bet V and with probability $\frac{1}{2}$ win (receive +V ) or lose (receive -V ). 
+Consider following strategy $\{V_t\}_{t=1}^{\infty}$:
+\[ 
+V_t = \begin{cases}
+    2^{t-1}, \ \text{if t = 1 or you lost all tries before t.} \\
+    0, \ \text{otherwise.}
+    \end{cases}
+\]
+In other words, you start with $V_1$ = 1 and double your bet until your first win, say at turn $\tau$, and don’t play
+anymore after. Denote your profit (or debt) after t-th turn as $\pi_t$ with initial condition $\pi_0$ = 0. \\
+1) Prove that $\tau$ < $\infty$ a.s.\\
+2) Find $\mathbb{E}[\pi_{\tau}]$. \\
+3) Find $\mathbb{E}[\pi_t]$. \\
+4) Compare results in 2) and 3). Explain this in terms of Doob’s optional sampling theorem.
+
+\subsection{Пункт 1}
+    Требуется доказать, что рано или поздно найдется такой ход $\tau$, при котором произойдет выигрыш и игра закончится. 
+    То есть, что вероятность такого события равна 1, при количестве ходов стремящемся к бесконечности.
+
+    \begin{definition}
+        Последовательность случайных величин $\xi_n$ сходится почти наверное (a.s.) к $\xi$ $\Leftrightarrow$ \\
+        $P(\{\omega \in \Omega: \lim_{n \rightarrow \infty} \xi_n(\omega) = \xi(\omega) \}) = 1$  
+    \end{definition}
+
+    В данном случае $\tau$ является случайной величиной, которая зависит от исхода игры $\omega$. Покажем от обратного, что $\tau < \infty$.
+    Пусть событие $A$ - игра никогда не закончится (то есть $\tau = \infty$), в таком случае $P(A) = 0$. За $L_t$ обозначим событие - проигрыш на ходе t.
+    По условию $P(L_t) = \frac{1}{2}$, так как результаты каждого хода независимы, то вероятность проиграть n раз подряд равна $P = (\frac{1}{2})^n$. Иными словами
+    вероятность, что выигрыш не наступит за n шагов $P(\tau > n) = (\frac{1}{2})^n$. При $n \rightarrow \infty$ получаем, что $P(\tau > \infty) = 0$. 
+    Это значит, что вероятность того, что игра будет длиться вечно равна нулю, а значит $\tau < \infty$ почти наверное.     
+
+\subsection{Пункт 2}
+    В данном пункте требуется вычислить математическое ожидание прибыли в момент выигрыша $\tau$. 
+    Рассмотрим конечные суммы $\pi_\tau$ при $\tau = k$. Мы можем разложить следующим образом $\pi_\tau = -V_{\text{проигрыша}} + V_{\text{выигрыша}} 
+    = -(V_1 + V_2 + ... + V_{k-1}) + V_k = -(1 + 2 + ... + 2^{k-2}) + 2^{k-1}$, заметим, что первая скобка это в точности сумма геометрической прогрессии.
+    $\pi_\tau = - (2^{k-1} - 1) + 2^{k-1} = 1$, таким образом получается, что $\pi_\tau = 1 = const$, т.е. прибыль не зависит от количества ходов и является константой, а математическое ожидание от константы равно ей же самой.
+    $\mathbb{E}[\pi_\tau] = \mathbb{E}[1] = 1$.
+
+\subsection{Пункт 3}
+    В данном пункте требуется вычислить математическое ожидание кошелька не в момент победы, а в любой фиксированный ход.
+    
+    \begin{definition}
+        Математическим ожиданием случайной величины $\xi$ называется $\mathbb{E}[\xi] = \int\limits_\Omega \xi(\omega) dP(\omega)$.
+    \end{definition}
+
+    Для нашего случая эквивалентно $\mathbb{E}[\xi] = \sum_{k=1}^{n} x_i * p_i$.
+    Вычислим математическое ожидание для t = 1: \\ 
+    $\mathbb{E}[\pi_1] = -1 * \frac{1}{2} + 1 * \frac{1}{2} = 0$. Вычислим для t = 2: $\mathbb{E}[\pi_2] = -2 * \frac{1}{2} + 2 * \frac{1}{2} + \mathbb{E}[\pi_1] = 0$. \\
+    Выведем общую формулу: $\mathbb{E}[\pi_t] = -V_t * \frac{1}{2} + V_t * \frac{1}{2} + \mathbb{E}[\pi_{t-1}]$, а так как $\mathbb{E}[\pi_t] = \mathbb{E}[\pi_{t-1}] = ... = \mathbb{E}[\pi_1] = 0$.
+    Это ожидаем, ведь игра по условию честная, то мат. ожидание выигрыша на каждом отдельном ходу равно 0.
+
+\subsection{Пункт 4}
+    Сравним результаты из пункта 2 и пункта 3: $\mathbb{E}[\pi_\tau] = 1$, а $\mathbb{E}[\pi_t] = 0$.
+    
+    \begin{definition}
+        Последовательность случайных величин $\{X_n\}_{n \in \mathbb{N}}$ - называется мартингалом, если: \\
+        1. $\mathbb{E}[X_{n+1}| X_1, ..., X_n] = X_n, \ n \in \mathbb{N}$ \\
+        2. $\mathbb{E}[|X_n|] < \infty, \ n \in \mathbb{N}$
+    \end{definition}
+
+    По определению наша последовательность случайных величин $\pi_t$ является мартингалом, так как мат. ожидание равно 0, то есть оно ограничено для любого момента t.
+    А мат. ожидание в момент t при условии предыдущих равно нулю.
+
+    \begin{theorem}
+        вывыф
+    \end{theorem}
+
+\section{Задание 2}
+
+\section{Задание 3}
+
+
+\end{document}
