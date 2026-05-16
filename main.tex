@@ -104,15 +104,21 @@ anymore after. Denote your profit (or debt) after t-th turn as $\pi_t$ with init
 
 \section{Задание 2}
 \subsection{Условие}
-    Дана выборка из неизвестного распределения $\{x_i\}_{i=1}^{n}$. Упорядочим выборку $x_{(1)} \le x_{(2)} \le ... \le x_{(n)}$ и тогда мы имеем порядковые статистики $\{x_{(i)}\}_{i=1}^{n}$.
-    Рассмотрим класс L-оценок: \\
-    $L(x) = \sum\limits_{i=1}^{n} l_ix_{(i)}$, \\
-    
-    Оценка полностью определяется множеством параметров $\{l_i\}_{i=1}^{n}$. Замечание: некоторые $l_i$ могут быть равны нулю или быть функцией от $i$.\\
-    Для следующих распределений предложите L-оценки параметров: \\
-    (a) $\mathcal{U}[a, b]$, \\
-    (b) $\mathcal{N}(\mu, \sigma)$, \\
-    (c) $Pois(\lambda)$.
+    Consider a sample $\{x_i\}_{i=1}^n$ from some unknown distribution. Let’s order it: $x_{(1)} \le . . . \le x_{(n)}$, so we have $\{x_{(i)}\}_{i=1}^n$. 
+Also consider a class of estimators: \\
+
+$L(x) = \sum\limits_{i=1}^{n} l_i x_{(i)}$, \\
+
+i.e. a linear combination of order statistics. This estimator is fully defined by set of parameters $\{l_i\}_{i=1}^n$. 
+Note: it is possible that some li = 0 or can be a function of i. 
+
+For each of following distributions propose unique estimator from the above class of each parameter:
+
+(a) $\mathcal{U}[a, b]$,
+
+(b) $\mathcal{N}(\mu, \sigma)$,
+
+(c) $Pois(\lambda)$.
 
 \subsection{Пункт a.}
     В данном пункте требуется найти L-оценку для параметров равномерного распределения $[a, b]$. 
@@ -216,22 +222,22 @@ anymore after. Denote your profit (or debt) after t-th turn as $\pi_t$ with init
     Получить её можно также с помощью метода максимального правдоподобия, покажем: $L(x_1, ..., x_n | \lambda) = \mathcal{L}(\lambda) = \\ 
     \prod\limits_{k=1}^n p(x = x_k| \lambda) = \prod\limits_{k=1}^{n} \frac{\lambda^{x_k}e^{-\lambda}}{x_k!} \Rightarrow log\mathcal{L}(\lambda) = \sum\limits_{k=1}^{n} log(\lambda^{x_{k}}e^{-\lambda}) - log(x_k!) \Rightarrow 
     \frac{\partial log\mathcal{L}}{\partial \lambda} = \sum\limits_{k=1}^n \frac{x_k}{\lambda} - 1 = 0 \Rightarrow \lambda = \frac{1}{n}\sum\limits_{k=1}^n x_k$ 
+
 \section{Задание 3}
 \subsection{Условие}
-    Рассмотрите следующую опционную стратегию. Вам разрешено купить $N_1$ колл-опционов со страйком 90\% от ATM, продать 
-    $N_2$ колл-опционов со страйком 110\% от ATM и купить или продать некоторое количество базового актива $N_3$. 
-    Все опционы имеют одинаковый срок до погашения $T$.
+Consider following option strategy. You allow to buy N1 call options with 90\% ATM strike, 
+sell N2 calls with 110\% ATM strike and buy or sell some amount of underlying asset, N3. 
+All options have the same maturity, T.
 
-    1) Используйте модель Garman–Kohlhagen для оценки всех вышеуказанных опционов на валютной паре USD/EUR с $T = 1$ год. 
-    Объясните, как вы задаёте параметры модели и почему именно так.
+1) Use the Garman–Kohlhagen model to price all above options on USD/EUR exchange rate with T = 1Y.
+Explain how you set model parameters and why.
 
-    2) При фиксированном общем количестве $N = \sum_{i=1}^{3} N_i^*$, найдите оптимальные пропорции капитала $\left( \frac{N_1^*}{N}, \frac{N_2^*}{N}, \frac{N_3^*}{N} \right)$, 
-    при которых $\Delta$ и $\Gamma$ стратегии сбрасываются в ноль.
+2) For fixed $N = \sum\limits_{i=1}^3 N^*_i$, find optimal proportions $\Big(\frac{N_1^*}{N}; \ \frac{N_2^*}{N}; \ \frac{N_3^*}{N} \Big)$ of capital allocation which reset to zero delta and gamma of the strategy.
 
-    3) Предположим, вы управляете капиталом в размере USD 100,000 и полностью инвестируете его в оптимальную стратегию из пункта 2).
-    Рассчитайте $\Theta$ портфеля и дайте интерпретацию результата. Какую доходность стратегии вы можете ожидать?
+3) Suppose you manage USD100,000 and fully invest this capital in the optimal strategy from 2). Calculate
+theta of the portfolio and interpret the result. What strategy revenue can you expect?
 
-    4) Какие предположения должны выполняться, чтобы модель из пункта 1) работала? Что может пойти не так в реальной жизни? Как это можно исправить?
+4) What assumptions must be hold for the model 1) works? What can go wrong in real life? How to fix it?
     
 \subsection{Пункт 1}
     Модель Garman–Kohlhagen задает следующей формулой стоимость покупки опциона: \\
